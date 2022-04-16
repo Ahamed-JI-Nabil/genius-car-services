@@ -8,7 +8,7 @@ import Header from './Pages/Shared/Header/Header';
 import Footer from './Pages/Shared/Footer/Footer';
 import Experts from './Pages/Home/Experts/Experts';
 import Login from './Pages/Login/Login/Login';
-import Register from './Pages/Login/Register';
+import Register from './Pages/Login/Register/Register';
 import NotFound from './Pages/Shared/NotFound/NotFound';
 
 function App() {
