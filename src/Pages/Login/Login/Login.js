@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -28,13 +28,7 @@ const Login = () => {
 
     }
 
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
-    const resetPassword = async () => {
-        const email = emailRef.current.value;
-        await sendPasswordResetEmail(email);
-        alert('Sent email');
-    }
     if (user) {
         navigate(from, { replace: true });
     }
@@ -71,7 +65,7 @@ const Login = () => {
                 </Button>
             </Form>
             <p className='mt-3'>New To Genius Car? <Link to='/register' className='text-primary text-decoration-none' >Please Register.</Link></p>
-            <p className='mt-3'>Forget Password? <Link to='/register' className='text-primary text-decoration-none' onClick={resetPassword} >Reset Password.</Link></p>
+            <p className='mt-3'>Forget Password? <Link to='/resetpassword' className='text-primary text-decoration-none'  >Reset Password.</Link></p>
             <SocialLogin></SocialLogin>
         </div>
     );
