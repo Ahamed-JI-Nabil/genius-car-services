@@ -5,6 +5,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { async } from '@firebase/util';
+import Loading from '../../Shared/Loading/Loading';
 
 const Register = () => {
     const [
@@ -31,7 +32,10 @@ const Register = () => {
 
         await createUserWithEmailAndPassword(email, password)
         await updateProfile({ displayName: name });
-        navigate('/login')
+        navigate('/home')
+    }
+    if (loading) {
+        return <Loading></Loading>
     }
     if (user) {
         console.log(user);
