@@ -3,6 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
@@ -28,7 +29,9 @@ const Login = () => {
 
     }
 
-
+    if(loading){
+        return <Loading></Loading>
+    }
     if (user) {
         navigate(from, { replace: true });
     }
