@@ -1,20 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import auth from '../../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
 
+    const [agree, setAgree] = useState(false)
     const emailRef = useRef('')
     const passwordRef = useRef('')
     const confirmPasswordRef = useRef('')
+    const navigate = useNavigate()
 
     const handleSubmit = event => {
         event.preventDefault()
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        console.log(email, password);
+        createUserWithEmailAndPassword(email, password)
 
+
+    }
+    if (user) {
+        navigate('/login')
     }
     /*
     another to access form value is 
@@ -42,14 +57,17 @@ const Register = () => {
                     <Form.Control ref={confirmPasswordRef} type="password" placeholder="Confirm Password" />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                <Form.Group onClick={() => setAgree(!agree)} className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check className={agree ? '' : 'text-danger'} type="checkbox" label="Accept Genius Car Terms and Condition" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button
+                    disabled={!agree}
+                    variant="primary" type="submit">
+                    Register
                 </Button>
             </Form>
             <p className='mt-3'>Already Have An Account? <Link to='/login' className='text-primary text-decoration-none '>Please LogIn.</Link> </p>
+            <SocialLogin></SocialLogin>
         </div>
     );
 };
