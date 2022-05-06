@@ -29,7 +29,7 @@ const Login = () => {
 
     }
 
-    if(loading){
+    if (loading) {
         return <Loading></Loading>
     }
     if (user) {
